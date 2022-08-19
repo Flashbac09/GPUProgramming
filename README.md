@@ -12,4 +12,4 @@
 
 目前Notes部分为.one格式
 
-仓库中包括了一个路师兄的GPU编程例子
+Code中包含一个GPU_Programming_sample，是最初从https://github.com/denghuilu/gpu_programming_samples 克隆下来学习的
