@@ -8,7 +8,7 @@
 //#set maxdimlimit
 //#not once for all(means limitless vecdim)
 //loop in threads
-//SIZE:  2(1 for call once),65535,512 or 2^31-1
+//SIZE:  2(1 for call once),2^31-1,512
 #define n 2
 double a[n],b[n],c[n];
 //KEY:address for memcpy,set pointers.//
@@ -21,7 +21,7 @@ __global__ void vecadd(double *a,double *b,double *c)
     while(index<n)
     {
         c[index]=a[index]+b[index];
-        index+=griddim.x*blockdim.x;
+        index+=gridDim.x*blockDim.x;
     }
     
 }
@@ -41,7 +41,7 @@ __host__ int main()
     cudaMemcpy(dev_b,b,n*sizeof(double),cudaMemcpyHostToDevice);
     //Which is Unnecessary:  cudaMemcpy(dev_c,c,n*sizeof(double),cudaMemcpyHostToDevice);
     //step 3 kernel function
-    vecadd<<<(128,128>>>(dev_a,dev_b,dev_c);
+    vecadd<<<128,128>>>(dev_a,dev_b,dev_c);
     //step 4 send result back to host(D2H)
     cudaMemcpy(c,dev_c,n*sizeof(double),cudaMemcpyDeviceToHost);
     for(int i=0;i<n;i++)

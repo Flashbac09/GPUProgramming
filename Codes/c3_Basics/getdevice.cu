@@ -11,7 +11,7 @@ __global__ void Devcount()
     cudaGetDeviceCount(&count);
 }
 */
-/*a numinfo for total available GPU
+/*a numinfo for total available GPU(device)
   use cudaGetDeviceProperties to control props,which is a struct*/
 __host__ int main()
 {

@@ -17,7 +17,7 @@ int main()
     int c;
     int *c4dev;
     //step 1 malloc
-    cudaMalloc(*c4dev,sizeof(int));
+    cudaMalloc((void**)&c4dev,sizeof(int));
     //step 2 kernel function
     simpleadd<<<2,19>>>(8,6,c4dev);
     //step 3 memcpy(d2h)

@@ -3,6 +3,8 @@
 #include<stdlib.h>
 #include<math.h>
 #include<cuda_runtime.h>
+#include<malloc.h>
+#include<cuda.h>
 //doc prodcut,ultilizing shared memory
 #define imin(a,b) (a<b?a:b)
 const int N=3;
@@ -13,7 +15,7 @@ __global__ void dot(double* a,double* b,double* c)
 {
     __shared__ double cache[threadsPerBlock];
     int tindex=threadIdx.x+blockDim.x*blockIdx.x;
-    int cacheindex=threadsIdx.x;
+    int cacheindex=threadIdx.x;
     double temp=0;
     while(tindex<N)
     {
@@ -52,7 +54,7 @@ __host__ int main()
     cudaMalloc((void**)&dev_pc,blocksPerGrid*sizeof(double));
     for(int i=0;i<N;i++)
     {
-        scanf("%lf%lf",a[i],b[i]);
+        a[i]=i;b[i]=i*i;
     }
     //3.Memcpy forward
     cudaMemcpy(dev_a,a,N*sizeof(double),cudaMemcpyHostToDevice);
@@ -66,11 +68,12 @@ __host__ int main()
     {
         c+=pc[i];
     }
+    printf("%lf",c);
     //6.1:cudafree
     cudaFree(dev_a);
     cudaFree(dev_b);
     cudaFree(dev_pc);
     //6.2:free
-    Free(a);Free(b);Free(pc);
+    free(a);free(b);free(pc);
     return 0;
 }

@@ -31,7 +31,6 @@
 // std::system includes
 
 #include <cuda_runtime.h>
-#include <helper_cuda.h>
 
 #include <iostream>
 #include <memory>
