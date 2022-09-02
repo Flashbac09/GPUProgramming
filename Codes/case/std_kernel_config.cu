@@ -4,6 +4,8 @@
 #include<iostream>
 #include<string.h>
 #include<malloc.h>
+#include<cuda.h>
+#include<cuda_runtime.h>
 #include<map>
 
 using namespace std;
@@ -12,11 +14,12 @@ using namespace std;
 int n;
 double *a,*b,*c;
 double *dev_a,*dev_b,*dev_c;
-dim3 Dg,Db;
+dim3 Dg(3,2,2);
+dim3 Db(4,5,6);
 __global__ void kernel(int n,double* a,double* b,double* c)
 {
     int tid=0,bid=0,bdm=0,idx=0;
-    //printf("%d %d %d %d\n",blockDim.x,blockDim.y,gridDim.x,gridDim.y);
+    printf("%d %d %d %d\n",blockDim.x,blockDim.y,gridDim.x,gridDim.y);
     tid=threadIdx.x+threadIdx.y*blockDim.x+threadIdx.z*blockDim.x*blockDim.y;
     bid=blockIdx.x+blockIdx.y*gridDim.x+blockIdx.z*gridDim.x*gridDim.y;
     bdm=blockDim.x*blockDim.y*blockDim.z;
@@ -47,8 +50,8 @@ __host__ int main()
     cudaMemcpy(dev_b,b,sizeof(double)*n,cudaMemcpyHostToDevice);
 
     //4:
-    Dg.x=3;Dg.y=2;Dg.z=2;
-    Db.x=2;Db.y=1;Db.z=1;
+    //Dg.x=3;Dg.y=2;Dg.z=2;
+    //Db.x=2;Db.y=1;Db.z=1;
     kernel<<<Dg,Db>>>(n,dev_a,dev_b,dev_c);
 
     //5:
