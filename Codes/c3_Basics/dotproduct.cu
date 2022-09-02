@@ -36,7 +36,7 @@ __global__ void dot(double* a,double* b,double* c)
         i=i/2;
     }
     if(cacheindex==0)
-        c[blockIdx.x]=cache[0];
+        c[blockIdx.x]=cache[0];//to each block
 }
 
 __host__ int main()
