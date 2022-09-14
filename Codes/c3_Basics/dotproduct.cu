@@ -2,7 +2,6 @@
 #include<iostream>
 #include<stdlib.h>
 #include<math.h>
-#include<cuda_runtime.h>
 #include<malloc.h>
 #include<cuda.h>
 //doc prodcut,ultilizing shared memory

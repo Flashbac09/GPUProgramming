@@ -1,6 +1,6 @@
 #include <cuda_runtime.h>
 #include <stdio.h>
-
+//json defs
 int main(int argc, char **argv) { 
     // define total data elements 
     int nElem = 1024;
